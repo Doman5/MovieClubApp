@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Edytuj - MovieClub</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+  <form action="" th:action="@{/uzytkownicy}" th:method="post" class="mc-form" th:object="${user}">
+    <label for="email"> Email </label>
+    <input name="email" id="email" th:value="*{email}" th:field="*{email}" readonly>
+    <label for="newEmail"> Email </label>
+    <input name="newEmail" id="newEmail" th:value="*{newEmail}" th:field="*{newEmail}">
+    <input id="password" name="password" th:value="*{password}" th:field="*{password}" hidden>
+    <label for="newPassword"> hasło </label>
+    <input type="password" id="newPassword" name="newPassword">
+    <button type="submit"> Zapisz </button>
+  </form>
+</main>
+</body>
+</html>

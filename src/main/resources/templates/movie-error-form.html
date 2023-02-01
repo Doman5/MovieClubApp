@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Dodaj nowy gatunek filmowy</title>
+</head>
+<body>
+<main class="main-content" layout:fragment="content">
+  <h2 class="list-heading">Dodaj nowy gatunek filmowy</h2>
+  <form th:action="@{/film/error}" action="" method="post" class="mc-form" th:object="${movieError}">
+    <input th:field="*{userName}" th:value="*{userName}" hidden>
+    <input th:field="*{movieId}" th:value="*{movieId}" hidden>
+    <label for="error-part"> Miejsce błędu</label>
+    <select id="error-part" th:field="*{errorPart}" >
+      <option value="tytuł"> Tytuł </option>
+      <option value="orginalny tytuł"> Orginalny tytuł </option>
+      <option value="gatunek"> Gatunek </option>
+      <option value="krótki opis"> Krótki opis </option>
+      <option value="opis"> Opis </option>
+    </select>
+    <label for="content">Opis błedu</label>
+    <textarea type="text" id="content" th:field="*{content}"></textarea>
+    <button type="submit">Wyślij</button>
+  </form>
+</main>
+</body>
+</html>

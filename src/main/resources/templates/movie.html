@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+  <title>Tytuł filmu - MovieClub</title>
+</head>
+<body>
+    <div class="container">
+      <main class="main-content" layout:fragment="content">
+        <section class="movie">
+            <div class="movie-summary">
+              <img src="../static/img/poster-placeholder.png"
+                   th:src="${movie.poster ne null} ? @{|/img/${movie.poster}|} : @{/img/poster-placeholder.png}"
+                   alt="tytul filmu"
+                   th:alt="${movie.title}"
+                  class="movie-summary-cover"/>
+              <div class="movie-summary-info">
+                  <h1 class="movie-summary-title" th:text="${movie.title}"> Władca pierścieni </h1>
+                  <p class="movie-summary-original-title" th:text="${movie.originalTitle}"> Lord of the Rings </p>
+                  <p class="movie-summary-item" th:text="${movie.releaseDate}"> Rok: 2001</p>
+                  <p class="movie-summary-item" th:if="${movie.genre != 'Brak'}">
+                      Gatunek <a href="#" th:href="@{|/gatunek/${movie.genre}|}" th:text="${movie.genre}"> Fantazy </a>
+                  </p>
+                  <p class="movie-summary-item" th:text="${movie.shortDescription}">
+                    Podróż odważnego hobbita i jego towarzyszy w poszukiwaniu pierścienia.
+                  </p>
+              </div>
+            </div>
+            <div class="movie-rating-container movie-section">
+                <h2 class="movie-section-heading"> Ocena</h2>
+                <div class="movie-rating-container movie-section">
+                    <h2 class="movie-section-heading">Ocena</h2>
+                    <p th:unless="${movie.ratingCount}">Brak głosów</p>
+                    <div th:if="${movie.ratingCount}">
+                        <p class="movie-rating-value" th:text="${#numbers.formatDecimal(movie.avgRating, 1, 1)}">4.0</p>
+                        <p th:text="|Liczba ocen: ${movie.ratingCount}|">Liczba ocen: 134</p>
+                    </div>
+                    <form action="#" th:action="@{/ocen-film}" method="post"
+                          sec:authorize="isAuthenticated()"
+                          class="movie-rating-form">
+                        <p>Twoja ocena</p>
+                        <input type="hidden" name="movieId" th:value="${movie.id}">
+                        <div class="movie-rating-buttons">
+                            <button class="movie-rating-button"
+                                    name="rating"
+                                    th:each="i: ${#numbers.sequence(1, 5)}"
+                                    th:value="${i}">
+                                <i class="fa-star" th:classappend="${i <= userRating ? 'fa-solid' : 'fa-regular'}"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <p sec:authorize="!isAuthenticated()">
+                        <a href="#" th:href="@{/login}">Zaloguj się</a>, aby oddać głos
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="movie-trailer-container movie-section">
+          <h2 class="movie-section-heading">Trailer</h2>
+          <iframe width="560" height="315" class="movie-trailer"
+                  src="https://www.youtube.com/embed/V75dMMIW2B4"
+                  th:src="@{|https://www.youtube.com/embed/${movie.youtubeTrailerId}|}"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </section>
+        <section class="movie-section">
+          <h2 class="movie-section-heading">Opis</h2>
+          <p th:text="${movie.description}">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at,
+            tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+        </section>
+          <p sec:authorize="isAuthenticated()">
+              <a href="#"
+                 th:href="@{|/film/error/${movie.id}|}"> zgłoś błąd w treści filmu</a>
+          </p>
+        <section class="movie-section comments-section">
+            <div class="comment-container" th:each="comment : ${comments}" th:object="${comment}">
+                <div class="comment-content">
+                    <h3 th:text="*{userName}"> admin@admin.com </h3>
+                    <h4 th:text="${#temporals.format(comment.date , 'dd-MM-yyyy')}"> 29-12-2002 </h4>
+                    <p th:text="*{content}"> Bardzo ciekawy film </p>
+                </div>
+                <div class="comment-edition-buttons" th:if="${#authentication.getName() == comment.userName}">
+                    <a href="#" th:href="@{|/komentarz/usun/${comment.id}|}"><i class="fa-solid fa-x"></i></a>
+                </div>
+            </div>
+            <div class="comment-add-form">
+                <form th:action="@{/komentarz}" th:method="post" th:object="${comment}">
+                    <input name="userName" th:value="${#authorization.getAuthentication().getName()}" hidden>
+                    <input name="movieId" th:value="${movie.id}" hidden>
+                    <textarea name="content" class="comment-input" rows="3" placeholder="Napisz komentarz"></textarea>
+                    <button type="submit"><i class="fa-solid fa-plus fa-3x add-button"></i></button>
+                </form>
+            </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

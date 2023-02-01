@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Tytuł filmu - MovieClub</title>
+</head>
+<body>
+<div class="container">
+  <main class="main-content" layout:fragment="content">
+    <h2 class="list-heading"> Edycja filmu </h2>
+    <table class="edit-list-table">
+      <thead class="table-header">
+      <tr>
+        <td> Nazwa </td>
+        <td> Opis </td>
+        <td class="edit-column"> <i class="fa-solid fa-wrench"></i> </td>
+        <td class="remove-column"> <i class="fa-solid fa-trash"></i> </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="genre : ${genres}" th:if="${genre.name ne 'Brak'}">
+        <td th:text="${genre.name}"> Król lew </td>
+        <td th:text="${genre.description}"> The Lion King </td>
+        <td class="edit-column"> <a href="#" th:href="@{|/admin/gatunki/${genre.id}|}"> <i class="fa-solid fa-wrench"></i> </a> </td>
+        <td class="remove-column"> <a href="#" th:href="@{|/admin/gatunki/usun/${genre.id}|}"> <i class="fa-solid fa-trash"></i> </a> </td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

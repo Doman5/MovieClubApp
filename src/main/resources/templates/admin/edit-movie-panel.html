@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Tytuł filmu - MovieClub</title>
+</head>
+<body>
+<div class="container">
+  <main class="main-content" layout:fragment="content">
+    <h2 class="list-heading"> Edycja filmu </h2>
+    <table class="edit-list-table">
+      <thead class="table-header">
+        <tr>
+          <td> Nazwa filmu </td>
+          <td> Orginalna nazwa </td>
+          <td> Rok wydania </td>
+          <td> Gatunek </td>
+          <td> Polecany </td>
+          <td class="edit-column"> <i class="fa-solid fa-wrench"></i> </td>
+          <td class="remove-column"> <i class="fa-solid fa-trash"></i> </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="movie : ${movies}">
+          <td th:text="${movie.title}"> Król lew </td>
+          <td th:text="${movie.originalTitle}"> The Lion King </td>
+          <td th:text="${movie.releaseDate}"> 2002 </td>
+          <td th:text="${movie.genre}"> Bajka </td>
+          <td th:if="${movie.promoted eq true}"> <i class="fa-solid fa-check"></i> </td>
+          <td th:if="${movie.promoted eq false}"> </td>
+          <td class="edit-column"> <a href="#" th:href="@{|/admin/filmy/${movie.id}|}"> <i class="fa-solid fa-wrench"></i> </a> </td>
+          <td class="remove-column"> <a href="#" th:href="@{|/admin/filmy/usun/${movie.id}|}"> <i class="fa-solid fa-trash"></i> </a> </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

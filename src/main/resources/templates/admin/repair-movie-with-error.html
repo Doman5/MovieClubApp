@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Napraw błąd w filmie - MovieClub</title>
+</head>
+<body>
+<div class="container">
+  <main class="main-content" layout:fragment="content">
+    <section class="error-section">
+      <h2 class="list-heading"> Błedy użytkowników </h2>
+      <table class="edit-list-table">
+        <thead class="table-header">
+        <tr>
+          <td> Użytkownik zgłaszający </td>
+          <td> ID filmu</td>
+          <td> Miejsce błędu </td>
+          <td> opis błędu </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td th:text="${error.userName}"> Adam </td>
+          <td th:text="${error.movieId}"> 3 </td>
+          <td th:text="${error.errorPart}"> Opis </td>
+          <td th:text="${error.content}"> W słowie kalambury jest literówka </td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="movie-edit-form">
+      <form action="" th:action="@{/admin/error}" th:method="post" class="mc-form" th:object="${movie}">
+        <input name="id" th:value="${movie.id}" type="hidden">
+        <label for="title">Tytuł</label>
+        <input id="title" name="title" value="tytuł" th:value="${movie.title}" th:field="*{title}">
+        <label for="originalTitle">Orginalny tytuł</label>
+        <input id="originalTitle" name="originalTitle" value="orginalny tytuł" th:value="${movie.originalTitle}" th:field="*{originalTitle}">
+        <label for="releaseDate">Data wydania</label>
+        <input id="releaseDate" name="releaseDate" value="data wydania" th:value="${movie.releaseDate}" th:field="*{releaseDate}">
+        <label for="genre">Gatunek</label>
+        <select id="genre" name="genre" th:field="*{genre}">
+          <option selected="selected" th:value="${movie.genre}" th:text="${movie.genre}"></option>
+          <option th:each="genre : ${genres}" th:value="${genre.name}" th:text="${genre.name}"> Gatunek </option>
+        </select>
+        <label for="poster">Obrazek</label>
+        <input id="poster" name="poster" value="obrazek" th:value="${movie.poster} " th:field="*{poster}">
+        <label for="youtubeTrailerId">Trailer Yt</label>
+        <input id="youtubeTrailerId" name="youtubeTrailerId" value="YTTrailerId" th:value="${movie.youtubeTrailerId}" th:field="*{youtubeTrailerId}">
+        <label th:for="promoted">Promowanie na stronie głównej?</label>
+        <input th:if="${movie.promoted == 'false'}" th:id="promoted" type="checkbox" th:field="*{promoted}">
+        <input th:unless="${movie.promoted == 'false'}" th:id="promoted" type="checkbox" th:field="*{promoted}" checked>
+        <label for="shortDescription">Krótki opis</label>
+        <input id="shortDescription" name="shortDescription" value="krótki opis" th:value="${movie.shortDescription}" th:field="*{shortDescription}">
+        <label for="description">Opis</label>
+        <textarea id="description" name="description" rows="10" value="opis" th:value="${movie.description}" th:field="*{description}"></textarea>
+        <button type="submit">Edytuj </button>
+        <input name="avgRating" th:value="${movie.avgRating}" hidden>
+        <input name="ratingCount" th:value="${movie.ratingCount}" hidden>
+        <input name="errorId" th:value="${error.id}" hidden>
+      </form>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>

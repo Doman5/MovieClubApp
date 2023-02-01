@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Użytkownicy - MovieClub</title>
+  <style>
+    input {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <main class="main-content" layout:fragment="content">
+    <h2 class="list-heading"> Zarządzaj użytkownikami </h2>
+    <table class="users-table">
+      <tbody>
+      <tr th:each="userInf: ${users}">
+        <form th:action="@{/admin/uzytkownicy}" method="post" th:object="${user}">
+          <input th:value="${userInf.email}" name="email" hidden>
+          <td th:text="${userInf.email}"></td>
+          <td th:each="role: ${roles}">
+              <input  type="checkbox" name="roles"
+                      th:value="${role.id}"
+                      th:text="${role.name}"
+              th:checked="${userInf.roles.contains(role.name)}">
+          </td>
+          <td>
+            <input type="checkbox" name="blocked"
+                th:checked="${userInf.blocked}"
+                th:text="Zablokowany">
+          </td>
+          <td>
+            <button type="submit"> Edytuj </button>
+          </td>
+        </form>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+insert into genre (name, description) values ('Comedy', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.');
+insert into genre (name, description) values ('Drama', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.');
+insert into genre (name, description) values ('Action|Comedy', 'Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor.');
+insert into genre (name, description) values ('Comedy|Fantasy|Romance', 'Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo.');
+insert into genre (name, description) values ('Drama|Romance', 'Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.');
+insert into genre (name, description) values ('Comedy|Drama', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend.');
+insert into genre (name, description) values ('Crime|Drama', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.');
+insert into genre (name, description) values ('Horror|Musical', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.');

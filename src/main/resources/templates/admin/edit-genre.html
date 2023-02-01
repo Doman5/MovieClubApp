@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Edytuj - MovieClub</title>
+</head>
+<body>
+  <main class="main-content" layout:fragment="content">
+    <form action="" th:action="@{/admin/gatunki}" th:method="post" class="mc-form" th:object="${genre}">
+      <input name="id" th:value="*{id}" th:field="*{id}" hidden>
+      <label for="name"> Nazwa </label>
+      <input id="name" name="name" value="nazwa" th:value="*{name}" th:field="*{name}">
+      <label for="description"> Opis </label>
+      <textarea id="description" name="description" value="nazwa" rows="5" th:value="*{description}" th:field="*{description}"></textarea>
+      <button type="submit"> Edytuj </button>
+    </form>
+  </main>
+</body>
+</html>

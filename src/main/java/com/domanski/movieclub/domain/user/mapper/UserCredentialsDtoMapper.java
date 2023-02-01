@@ -24,8 +24,7 @@ public class UserCredentialsDtoMapper {
                 .stream()
                 .map(UserRole::getName)
                 .collect(Collectors.toSet());
-        boolean isBlocked = user.isBlocked();
-        return new UserCredentialsDto(email,password,roles, isBlocked);
+        return new UserCredentialsDto(email,password,roles);
     }
 
     public User map(UserCredentialsDto userDto) {
@@ -33,7 +32,6 @@ public class UserCredentialsDtoMapper {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setUserRoles(userDto.getRoles().stream().map(this::convertStringToUserRole).collect(Collectors.toSet()));
-        user.setBlocked(userDto.isBlocked());
         return user;
     }
 

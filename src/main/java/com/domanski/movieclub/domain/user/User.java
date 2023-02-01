@@ -20,12 +20,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<UserRole> userRoles = new HashSet<>();
-    private boolean isBlocked;
-    private boolean enabled;
 
     public User() {
         super();
-        this.enabled = false;
     }
 
     public Long getId() {
@@ -60,19 +57,4 @@ public class User {
         this.userRoles = userRoles;
     }
 
-    public boolean isBlocked() {
-        return isBlocked;
-    }
-
-    public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 }

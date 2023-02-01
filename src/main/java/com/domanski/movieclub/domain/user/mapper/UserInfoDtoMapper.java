@@ -6,7 +6,6 @@ import com.domanski.movieclub.domain.user.User;
 public class UserInfoDtoMapper {
     public static UserInfoDto map(User user) {
         return new UserInfoDto(user.getEmail(),
-                user.getUserRoles().toString(),
-                user.isBlocked());
+                user.getUserRoles().toString());
     }
 }

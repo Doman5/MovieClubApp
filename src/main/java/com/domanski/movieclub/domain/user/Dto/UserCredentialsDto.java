@@ -8,11 +8,10 @@ public class UserCredentialsDto {
     private Set<String> roles;
     private boolean isBlocked;
 
-    public UserCredentialsDto(String email, String password, Set<String> roles, boolean isBlocked) {
+    public UserCredentialsDto(String email, String password, Set<String> roles) {
         this.email = email;
         this.password = password;
         this.roles = roles;
-        this.isBlocked = isBlocked;
     }
 
     public String getEmail() {

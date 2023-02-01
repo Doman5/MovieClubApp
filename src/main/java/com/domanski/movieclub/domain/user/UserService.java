@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private final String DEFAULT_ROLE = "USER";
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
@@ -33,6 +32,7 @@ public class UserService {
 
     @Transactional
     public void RegisterUser(UserRegistrationDto userToSava) {
+        String DEFAULT_ROLE = "USER";
         UserRole role = userRoleRepository.findByName(DEFAULT_ROLE).orElseThrow();
         User user = new User();
         user.setEmail(userToSava.getEmail());
@@ -50,7 +50,6 @@ public class UserService {
     public void editByAdmin(UserEditByAdminDto user) {
         User userToSave = userRepository.findByEmail(user.getEmail()).orElseThrow();
         userToSave.setUserRoles(user.getRoles());
-        userToSave.setBlocked(user.isBlocked());
         userRepository.save(userToSave);
     }
 
